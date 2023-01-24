@@ -55,6 +55,8 @@ public class LadderAndSnake {
             player2xCord = player2Cord%10;
             player1yCord = (player1Cord - player1xCord) /10;
             player2yCord = (player2Cord - player2xCord) /10;
+            System.out.println("x: " + player1xCord + ", y: " + player1yCord);
+            System.out.println("x: " + player2xCord + ", y: " + player2yCord);
             gameBoard[player1xCord][player1yCord] = '1';
             gameBoard[player2xCord][player2yCord] = '2';
 

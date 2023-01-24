@@ -32,32 +32,45 @@ public class LadderAndSnake {
         //starts game
         while(player1Cord != 100 && player2Cord != 100){
 
+            int p1LastPos = player1Cord;
+            int p2LastPos = player2Cord;
+
             //checks who the starting player is
             if(startingPlayer == 1) {
                 valueflipDicePlayer1 = flipDice();
                 valueflipDicePlayer2 = flipDice();
                 player1Cord += valueflipDicePlayer1;
                 player2Cord += valueflipDicePlayer2;
-                System.out.println("Player 1 rolled a: " + valueflipDicePlayer1 + "\nPlayer 2 rolled a: " + valueflipDicePlayer2);
+                System.out.println("\nPlayer 1 rolled a: " + valueflipDicePlayer1 + "\nPlayer 2 rolled a: " + valueflipDicePlayer2);
+                sameSquare(p1LastPos,p2LastPos);
             }
 
-            else if(startingPlayer == 2) {
+            else if(startingPlayer == 2){
                 valueflipDicePlayer1 = flipDice();
                 valueflipDicePlayer2 = flipDice();
                 player1Cord += valueflipDicePlayer1;
                 player2Cord += valueflipDicePlayer2;
                 System.out.println( "\nPlayer 2 rolled a: " + valueflipDicePlayer2 + "\nPlayer 1 rolled a: " + valueflipDicePlayer1);
-                System.out.println("hello");
+                sameSquare(p2LastPos, p1LastPos);
             }
             //resets board
             initializeGameBoard();
             //adds player positions to the game board
-            player1xCord = player1Cord%10;
-            player2xCord = player2Cord%10;
-            player1yCord = (player1Cord - player1xCord) /10;
-            player2yCord = (player2Cord - player2xCord) /10;
-            System.out.println("x: " + player1xCord + ", y: " + player1yCord);
-            System.out.println("x: " + player2xCord + ", y: " + player2yCord);
+            player1xCord = (player1Cord%10)-1;
+            player2xCord = (player2Cord%10)-1;
+            player1yCord = (player1Cord+1 - player1xCord) /10;
+            player2yCord = (player2Cord+1 - player2xCord) /10;
+            System.out.println("player 1, x: " + player1xCord + ", y: " + player1yCord + ", total: " + player1Cord);
+            System.out.println("player 2, x: " + player2xCord + ", y: " + player2yCord + ", total: " + player2Cord);
+
+            if(player1xCord < 0){
+                player1xCord = 0;
+            }
+            else;
+            if(player2xCord < 0){
+                player2xCord = 0;
+            }
+            else;
             gameBoard[player1xCord][player1yCord] = '1';
             gameBoard[player2xCord][player2yCord] = '2';
 
@@ -170,6 +183,33 @@ public class LadderAndSnake {
                 gameBoard[i][k] = '.';
             }
         }
+
+    }
+
+    public void sameSquare(int lastp1, int lastp2) {
+        //checks if the two players on the same square
+        if (startingPlayer == 1) {
+            if (player1Cord == lastp2) {
+                player1Cord = 1;
+                System.out.println("Player 1 landed on the same square as player 1, therefore is reset");
+            }
+            else if(player2Cord == player1Cord) {
+                player2Cord = 1;
+                System.out.println("Player 2 landed on the same square as player 1, therefore is reset");
+            }
+        }
+
+        else if (startingPlayer == 2) {
+            if (player2Cord == lastp1) {
+                player2Cord = 1;
+                System.out.println("Player 2 landed on the same square as player 1, therefore is reset");
+            }
+            else if(player1Cord == player2Cord) {
+                player1Cord = 1;
+                System.out.println("Player 1 landed on the same square as player 2, therefore is reset");
+            }
+        }
+        else;
 
     }
 }

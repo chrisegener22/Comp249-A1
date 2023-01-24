@@ -47,6 +47,7 @@ public class LadderAndSnake {
                 player1Cord += valueflipDicePlayer1;
                 player2Cord += valueflipDicePlayer2;
                 System.out.println( "\nPlayer 2 rolled a: " + valueflipDicePlayer2 + "\nPlayer 1 rolled a: " + valueflipDicePlayer1);
+                System.out.pritln("hello");
             }
             //resets board
             initializeGameBoard();

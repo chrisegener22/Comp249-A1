@@ -50,6 +50,8 @@ public class LadderAndSnake {
                 valueflipDicePlayer2 = flipDice();
                 player1Cord += valueflipDicePlayer1;
                 player2Cord += valueflipDicePlayer2;
+                player1Cord = snakeorladder(player1Cord);
+                player2Cord = snakeorladder(player2Cord);
                 System.out.println( "\nPlayer 2 rolled a: " + valueflipDicePlayer2 + "\nPlayer 1 rolled a: " + valueflipDicePlayer1);
                 sameSquare(p2LastPos, p1LastPos);
             }
@@ -163,7 +165,7 @@ public class LadderAndSnake {
             startingPlayer = 2;
         }
 
-        System.out.println("The starting player is player: " + startingPlayer + "\nIt took " + numOfTimesFlipped + " iterations to find who starts\nThe game will now commence\nH'stand for ladders, and O's stand for snakes\n");
+        System.out.println("The starting player is player: " + startingPlayer + "\nIt took " + numOfTimesFlipped + " iterations to find who starts\nThe game will now commence\nH'stands start of a ladder and + is end, and O's stand for start of snake and - is end\n");
 
     }
 
@@ -183,6 +185,33 @@ public class LadderAndSnake {
                 gameBoard[i][k] = '.';
             }
         }
+        //1-38
+        gameBoard[0][0] = 'H';
+        gameBoard[7][3] = '+';
+        //4-14
+        gameBoard[3][0] = 'H';
+        gameBoard[3][1] = '+';
+        //9-31
+        gameBoard[8][0] = 'H';
+        gameBoard[0][3] = '+';
+        //28-84
+        gameBoard[7][2] = 'H';
+        gameBoard[3][8] = '+';
+        //21-42
+        gameBoard[0][2] = 'H';
+        gameBoard[1][4] = '+';
+        //36-44
+        gameBoard[5][3] = 'H';
+        gameBoard[3][4] = '+';
+        //51-67
+        gameBoard[0][5] = 'H';
+        gameBoard[6][6] = '+';
+        //71-91
+        gameBoard[0][7] = 'H';
+        gameBoard[0][9] = '+';
+        //80-100
+        gameBoard[9][7] = 'H';
+        gameBoard[9][9] = '+';
 
     }
 
@@ -211,5 +240,93 @@ public class LadderAndSnake {
         }
         else;
 
+    }
+
+    public int snakeorladder(int playerposition){
+
+        boolean onLadder = false;
+        boolean onSnake = false;
+
+        switch (playerposition){
+            case 1:
+                playerposition = 38;
+                onLadder = true;
+                break;
+            case 4:
+                playerposition = 14;
+                onLadder = true;
+                break;
+            case 9:
+                playerposition = 31;
+                onLadder = true;
+                break;
+            case 21:
+                playerposition = 42;
+                onLadder = true;
+                break;
+            case 28:
+                playerposition = 84;
+                onLadder = true;
+                break;
+            case 36:
+                playerposition = 44;
+                onLadder = true;
+                break;
+            case 51:
+                playerposition = 54;
+                onLadder = true;
+                break;
+            case 71:
+                playerposition = 91;
+                onLadder = true;
+                break;
+            case 80:
+                playerposition = 100;
+                onLadder = true;
+                break;
+            case 16:
+                playerposition = 6;
+                onSnake = true;
+                break;
+            case 48:
+                playerposition = 30;
+                onSnake = true;
+                break;
+            case 62:
+                playerposition = 19;
+                onSnake = true;
+                break;
+            case 64:
+                playerposition = 60;
+                onSnake = true;
+                break;
+            case 93:
+                playerposition = 68;
+                onSnake = true;
+                break;
+            case 95:
+                playerposition = 24;
+                onSnake = true;
+                break;
+            case 97:
+                playerposition = 76;
+                onSnake = true;
+                break;
+            case 98:
+                playerposition = 78;
+                onLadder = true;
+                break;
+            default:
+                break;
+        }
+
+        if(onLadder == true){
+            System.out.println("Congrats you hit a ladder");
+        }
+        else if(onSnake == true){
+            System.out.println("Unfortunate, you hit a snake");
+        }
+        else;
+        return playerposition;
     }
 }

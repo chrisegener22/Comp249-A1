@@ -43,6 +43,7 @@ public class LadderAndSnake {
                 player2Cord += valueflipDicePlayer2;
                 System.out.println("\nPlayer 1 rolled a: " + valueflipDicePlayer1 + "\nPlayer 2 rolled a: " + valueflipDicePlayer2);
                 sameSquare(p1LastPos,p2LastPos);
+                at100();
             }
 
             else if(startingPlayer == 2){
@@ -50,10 +51,11 @@ public class LadderAndSnake {
                 valueflipDicePlayer2 = flipDice();
                 player1Cord += valueflipDicePlayer1;
                 player2Cord += valueflipDicePlayer2;
-                player1Cord = snakeorladder(player1Cord);
-                player2Cord = snakeorladder(player2Cord);
+                player1Cord = snakeorladder(player1Cord,1);
+                player2Cord = snakeorladder(player2Cord,2);
                 System.out.println( "\nPlayer 2 rolled a: " + valueflipDicePlayer2 + "\nPlayer 1 rolled a: " + valueflipDicePlayer1);
                 sameSquare(p2LastPos, p1LastPos);
+                at100();
             }
             //resets board
             initializeGameBoard();
@@ -62,8 +64,8 @@ public class LadderAndSnake {
             player2xCord = (player2Cord%10)-1;
             player1yCord = (player1Cord+1 - player1xCord) /10;
             player2yCord = (player2Cord+1 - player2xCord) /10;
-            System.out.println("player 1, x: " + player1xCord + ", y: " + player1yCord + ", total: " + player1Cord);
-            System.out.println("player 2, x: " + player2xCord + ", y: " + player2yCord + ", total: " + player2Cord);
+            System.out.println("player 1 total: " + player1Cord);
+            System.out.println("player 2 total: " + player2Cord);
 
             if(player1xCord < 0){
                 player1xCord = 0;
@@ -76,13 +78,15 @@ public class LadderAndSnake {
             gameBoard[player1xCord][player1yCord] = '1';
             gameBoard[player2xCord][player2yCord] = '2';
 
+            System.out.println();
             for(int i = 0; i < 10; i++) {
                 for(int k = 0; k < 10; k++) {
-                    System.out.print(gameBoard[i][k]);
+                    System.out.print(gameBoard[i][k] + " ");
                 }
                 System.out.println();
             }
 
+            System.out.println();
             System.out.println("Press enter to continue");
             myScanner.nextLine();
         }
@@ -185,6 +189,7 @@ public class LadderAndSnake {
                 gameBoard[i][k] = '.';
             }
         }
+        //ladders
         //1-38
         gameBoard[0][0] = 'H';
         gameBoard[7][3] = '+';
@@ -212,7 +217,28 @@ public class LadderAndSnake {
         //80-100
         gameBoard[9][7] = 'H';
         gameBoard[9][9] = '+';
-
+        //snakes
+        //16-6
+        gameBoard[5][1] = 'O';
+        gameBoard[5][0] = '-';
+        //48-30
+        gameBoard[7][4] = 'O';
+        gameBoard[9][2] = '-';
+        //62-19
+        gameBoard[1][6] = 'O';
+        gameBoard[8][1] = '-';
+        //64-60
+        gameBoard[3][6] = 'O';
+        gameBoard[9][5] = '-';
+        //93-68
+        gameBoard[2][9] = 'O';
+        gameBoard[8][6] = '-';
+        //95-24
+        gameBoard[4][9] = 'O';
+        gameBoard[3][2] = '-';
+        //98-78
+        gameBoard[7][9] = 'O';
+        gameBoard[7][7] = '-';
     }
 
     public void sameSquare(int lastp1, int lastp2) {
@@ -242,7 +268,7 @@ public class LadderAndSnake {
 
     }
 
-    public int snakeorladder(int playerposition){
+    public int snakeorladder(int playerposition, int i){
 
         boolean onLadder = false;
         boolean onSnake = false;
@@ -321,12 +347,47 @@ public class LadderAndSnake {
         }
 
         if(onLadder == true){
-            System.out.println("Congrats you hit a ladder");
+            if(i == 1) {
+                System.out.println("Congrats player 1 hit a ladder");
+            }
+            else if(i == 2) {
+                System.out.println("Congrats player 2 hit a ladder");
+            }
         }
         else if(onSnake == true){
-            System.out.println("Unfortunate, you hit a snake");
+            if(i == 1) {
+                System.out.println("Unfortunate, player 1 hit a snake");
+            }
+            else if(i == 2) {
+                System.out.println("Unfortunate, player 2 hit a snake");
+            }
         }
         else;
         return playerposition;
+    }
+
+    public void at100(){
+        int above100 = 0;
+        if(player1Cord > 100){
+            above100 = player1Cord % 100;
+            player1Cord = 100;
+            player1Cord = (player1Cord - above100);
+            System.out.println("Player 1 had a score above 100 therefore " + above100 + " was subtracted from their score");
+        }
+        else if(player2Cord > 100){
+            above100 = player2Cord % 100;
+            player2Cord = 100;
+            player2Cord = (player2Cord - above100);
+            System.out.println("Player 1 had a score above 100 therefore " + above100 + " was subtracted from their score");
+        }
+
+        if(player1Cord == 100){
+            System.out.println("Congrats player 1, you win!");
+            exit(0);
+        }
+        else if(player2Cord == 100){
+            System.out.println("Congrats player 2, you win!");
+            exit(0);
+        }
     }
 }
